@@ -173,15 +173,6 @@ The AI understands context and suggests appropriate component combinations:
 
 ---
 
-## 🏆 Why This Wins (Hackathon)
-
-- ✅ **Platform, not a single app** – "Here is a system that generates any productivity tool"
-- ✅ **Best use of Tambo** – AI literally controls which components render and with what config
-- ✅ **Technical Innovation** – Registry pattern, dynamic rendering, dataKey wiring, grid layout
-- ✅ **UX Excellence** – Command palette, onboarding tour, smooth animations
-- ✅ **Scope Control** – 23 components, no auth, no backend. Pure generative UI.
-
----
 
 ## 📚 Tech Stack
 
@@ -197,9 +188,16 @@ The AI understands context and suggests appropriate component combinations:
 
 ---
 
-## 📄 License
+## 
+This project was developed with the assistance of AI-powered tools during different stages of development. These tools were used as productivity enhancers and learning aids, not as a replacement for core design or engineering decisions.
 
-MIT License – See [LICENSE](LICENSE) for details.
+AI Tools Used
+
+ChatGPT – for ideation, architecture discussions, debugging support, and refining the overall system design.
+
+Cursor – as an AI-assisted code editor to speed up development, refactoring, and boilerplate generation.
+
+Antigravity – for exploratory reasoning, alternative solution validation, and cross-checking design decisions.
 
 ---
 
