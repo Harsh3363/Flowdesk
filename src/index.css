@@ -1,0 +1,459 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ========================================
+   FLOWDESK - LUXURIOUS THEME SYSTEM
+   ======================================== */
+
+/* Light Theme (default) */
+:root {
+  /* Base Colors */
+  --background: 250, 250, 252;
+  --foreground: 15, 15, 20;
+
+  /* Cards */
+  --card: 255, 255, 255;
+  --card-foreground: 15, 15, 20;
+
+  /* Primary - Vibrant Indigo */
+  --primary: 99, 102, 241;
+  --primary-foreground: 255, 255, 255;
+
+  /* Secondary */
+  --secondary: 241, 245, 249;
+  --secondary-foreground: 15, 23, 42;
+
+  /* Muted */
+  --muted: 241, 245, 249;
+  --muted-foreground: 100, 116, 139;
+
+  /* Accent */
+  --accent: 236, 72, 153;
+  --accent-foreground: 255, 255, 255;
+
+  /* Borders */
+  --border: 226, 232, 240;
+  --input: 226, 232, 240;
+  --ring: 99, 102, 241;
+
+  /* Destructive */
+  --destructive: 239, 68, 68;
+  --destructive-foreground: 255, 255, 255;
+
+  /* Gradients */
+  --gradient-start: 139, 92, 246;
+  --gradient-end: 236, 72, 153;
+}
+
+/* Dark Theme */
+.dark {
+  /* Base Colors - Deep rich dark */
+  --background: 10, 10, 15;
+  --foreground: 248, 250, 252;
+
+  /* Cards - Elevated dark surfaces */
+  --card: 20, 20, 28;
+  --card-foreground: 248, 250, 252;
+
+  /* Primary - Bright Indigo */
+  --primary: 129, 140, 248;
+  --primary-foreground: 255, 255, 255;
+
+  /* Secondary */
+  --secondary: 30, 30, 40;
+  --secondary-foreground: 248, 250, 252;
+
+  /* Muted */
+  --muted: 35, 35, 45;
+  --muted-foreground: 148, 163, 184;
+
+  /* Accent - Vibrant Pink */
+  --accent: 244, 114, 182;
+  --accent-foreground: 255, 255, 255;
+
+  /* Borders */
+  --border: 45, 45, 60;
+  --input: 45, 45, 60;
+  --ring: 129, 140, 248;
+
+  /* Destructive */
+  --destructive: 248, 113, 113;
+  --destructive-foreground: 255, 255, 255;
+
+  /* Gradients */
+  --gradient-start: 167, 139, 250;
+  --gradient-end: 244, 114, 182;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    transition: background-color 300ms ease, border-color 300ms ease, color 300ms ease;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: rgb(var(--background));
+  }
+
+  /* Smooth theme transitions */
+  :root {
+    transition: all 300ms ease;
+  }
+}
+
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
+
+@layer utilities {
+
+  /* Glass morphism effect */
+  .glass {
+    @apply backdrop-blur-xl bg-white/10 dark:bg-white/5;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .glass-dark {
+    @apply backdrop-blur-xl bg-black/20 dark:bg-black/40;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  /* Premium shadows */
+  .shadow-glow {
+    box-shadow:
+      0 0 20px -5px rgba(var(--primary), 0.3),
+      0 10px 40px -10px rgba(0, 0, 0, 0.2);
+  }
+
+  .shadow-glow-sm {
+    box-shadow:
+      0 0 10px -3px rgba(var(--primary), 0.2),
+      0 4px 20px -5px rgba(0, 0, 0, 0.15);
+  }
+
+  .shadow-luxe {
+    box-shadow:
+      0 1px 2px rgba(0, 0, 0, 0.05),
+      0 4px 8px rgba(0, 0, 0, 0.05),
+      0 16px 32px rgba(0, 0, 0, 0.08),
+      0 32px 64px rgba(0, 0, 0, 0.08);
+  }
+
+  .dark .shadow-luxe {
+    box-shadow:
+      0 1px 2px rgba(0, 0, 0, 0.2),
+      0 4px 8px rgba(0, 0, 0, 0.15),
+      0 16px 32px rgba(0, 0, 0, 0.2),
+      0 0 0 1px rgba(255, 255, 255, 0.03);
+  }
+
+  /* Gradient borders */
+  .gradient-border {
+    position: relative;
+    background: rgb(var(--card));
+    border-radius: 12px;
+  }
+
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    padding: 1px;
+    background: linear-gradient(135deg,
+        rgba(var(--gradient-start), 0.5),
+        rgba(var(--gradient-end), 0.5));
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* Premium gradient backgrounds */
+  .bg-gradient-premium {
+    background: linear-gradient(135deg,
+        rgba(var(--gradient-start), 0.1) 0%,
+        rgba(var(--gradient-end), 0.1) 100%);
+  }
+
+  .bg-gradient-hero {
+    background: linear-gradient(135deg,
+        rgba(var(--primary), 0.15) 0%,
+        rgba(var(--accent), 0.1) 50%,
+        rgba(var(--primary), 0.05) 100%);
+  }
+
+  /* Text gradients */
+  .text-gradient {
+    background: linear-gradient(135deg,
+        rgb(var(--gradient-start)),
+        rgb(var(--gradient-end)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Hover glow effect */
+  .hover-glow {
+    transition: all 0.3s ease;
+  }
+
+  .hover-glow:hover {
+    box-shadow:
+      0 0 30px -5px rgba(var(--primary), 0.4),
+      0 20px 50px -15px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+  }
+
+  /* Animated gradient border */
+  @keyframes gradient-shift {
+
+    0%,
+    100% {
+      background-position: 0% 50%;
+    }
+
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  .animate-gradient {
+    background-size: 200% 200%;
+    animation: gradient-shift 3s ease infinite;
+  }
+
+  /* Pulse glow animation */
+  @keyframes pulse-glow {
+
+    0%,
+    100% {
+      box-shadow: 0 0 20px -5px rgba(var(--primary), 0.3);
+    }
+
+    50% {
+      box-shadow: 0 0 30px -5px rgba(var(--primary), 0.5);
+    }
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  /* Shimmer effect */
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-100%);
+    }
+
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  .shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .shimmer::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg,
+        transparent,
+        rgba(255, 255, 255, 0.1),
+        transparent);
+    animation: shimmer 2s infinite;
+  }
+}
+
+/* ========================================
+   COMPONENT STYLES
+   ======================================== */
+
+@layer components {
+
+  /* Premium card style */
+  .card-premium {
+    @apply rounded-xl bg-card shadow-luxe;
+    background: linear-gradient(145deg,
+        rgba(var(--card), 1) 0%,
+        rgba(var(--card), 0.95) 100%);
+    border: 1px solid rgba(var(--border), 0.5);
+  }
+
+  .dark .card-premium {
+    background: linear-gradient(145deg,
+        rgba(30, 30, 40, 1) 0%,
+        rgba(20, 20, 28, 1) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  /* Button styles */
+  .btn-primary {
+    @apply px-4 py-2 rounded-lg font-medium transition-all duration-200;
+    background: linear-gradient(135deg,
+        rgb(var(--primary)) 0%,
+        rgb(var(--accent)) 100%);
+    color: white;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 30px -10px rgba(var(--primary), 0.5);
+  }
+
+  /* Input styles */
+  .input-premium {
+    @apply rounded-lg border bg-background px-4 py-2 transition-all duration-200;
+    border-color: rgba(var(--border), 0.5);
+  }
+
+  .input-premium:focus {
+    @apply outline-none ring-2;
+    ring-color: rgba(var(--primary), 0.3);
+    border-color: rgb(var(--primary));
+  }
+
+  /* Tab styles */
+  .tab-active {
+    @apply relative;
+    background: linear-gradient(135deg,
+        rgba(var(--primary), 0.1) 0%,
+        rgba(var(--accent), 0.05) 100%);
+  }
+
+  .tab-active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 2px;
+    background: linear-gradient(90deg,
+        rgb(var(--primary)),
+        rgb(var(--accent)));
+    border-radius: 2px;
+  }
+}
+
+/* ========================================
+   SCROLLBAR STYLING
+   ======================================== */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(var(--muted), 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(var(--muted-foreground), 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(var(--muted-foreground), 0.5);
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* ========================================
+   SEMANTIC COLOR CLASSES
+   ======================================== */
+
+.bg-background {
+  background-color: rgb(var(--background));
+}
+
+.bg-card {
+  background-color: rgb(var(--card));
+}
+
+.bg-primary {
+  background-color: rgb(var(--primary));
+}
+
+.bg-secondary {
+  background-color: rgb(var(--secondary));
+}
+
+.bg-muted {
+  background-color: rgb(var(--muted));
+}
+
+.bg-accent {
+  background-color: rgb(var(--accent));
+}
+
+.bg-destructive {
+  background-color: rgb(var(--destructive));
+}
+
+.text-foreground {
+  color: rgb(var(--foreground));
+}
+
+.text-card-foreground {
+  color: rgb(var(--card-foreground));
+}
+
+.text-primary {
+  color: rgb(var(--primary));
+}
+
+.text-primary-foreground {
+  color: rgb(var(--primary-foreground));
+}
+
+.text-muted-foreground {
+  color: rgb(var(--muted-foreground));
+}
+
+.text-accent {
+  color: rgb(var(--accent));
+}
+
+.text-destructive {
+  color: rgb(var(--destructive));
+}
+
+.border-border {
+  border-color: rgb(var(--border));
+}
+
+.border-input {
+  border-color: rgb(var(--input));
+}
+
+.border-primary {
+  border-color: rgb(var(--primary));
+}
+
+.ring-ring {
+  --tw-ring-color: rgb(var(--ring));
+}

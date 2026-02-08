@@ -1,0 +1,1 @@
+import{_ as a,M as r}from"./index-R5DMnRP5.js";async function o(){try{const{JSONSchema:t}=await a(async()=>{const{JSONSchema:e}=await import("./standard-json-yoD6TSFD.js");return{JSONSchema:e}},[]);return e=>t.make(e)}catch{throw new r("effect")}}export{o as default};
