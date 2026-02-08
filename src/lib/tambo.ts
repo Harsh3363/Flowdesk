@@ -64,6 +64,11 @@ export const components: TamboComponent[] = [
 ];
 
 function makeLayout(slots: Array<{ type: string; props?: Record<string, unknown> }>) {
+  // Validation: warn if suspicious single-slot call
+  if (slots.length === 1) {
+    console.warn('[FlowDesk] ⚠️ Warning: Only 1 component slot provided. If user requested multiple components, this may be incorrect.');
+  }
+
   // Auto-generate IDs for slots that don't have them
   const slotsWithIds = slots.map((slot, index) => ({
     id: `tool-slot-${Date.now()}-${index}`,

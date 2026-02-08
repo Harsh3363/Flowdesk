@@ -12,27 +12,27 @@ interface MusicPlayerProps {
   title?: string;
 }
 
-// Default playlist with a sample track
+// Default playlist with reliable audio sources
 const DEFAULT_TRACKS: Track[] = [
   {
     id: "1",
-    title: "Chill Lofi Beats",
-    artist: "Study Music",
-    url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+    title: "Lofi Study Beats",
+    artist: "Chill Vibes",
+    url: "https://ia801409.us.archive.org/16/items/999WavFiles/Fm120.mp3",
     cover: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=300&h=300&fit=crop"
   },
   {
     id: "2",
     title: "Ambient Dreams",
     artist: "Relaxation",
-    url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+    url: "https://ia801409.us.archive.org/16/items/999WavFiles/Fm140.mp3",
     cover: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=300&fit=crop"
   },
   {
     id: "3",
     title: "Electronic Vibes",
     artist: "Focus Music",
-    url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+    url: "https://ia801409.us.archive.org/16/items/999WavFiles/Fm160.mp3",
     cover: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=300&h=300&fit=crop"
   }
 ];
@@ -46,6 +46,7 @@ export function MusicPlayer({ title = "Music Player" }: MusicPlayerProps): JSX.E
   const [duration, setDuration] = useState(0);
   const [volume, setVolume] = useState(0.7);
   const [searchQuery, setSearchQuery] = useState("");
+  const [audioError, setAudioError] = useState(false);
 
   const currentTrack = tracks[currentTrackIndex];
 
@@ -54,25 +55,33 @@ export function MusicPlayer({ title = "Music Player" }: MusicPlayerProps): JSX.E
     if (audioRef.current && currentTrack) {
       audioRef.current.src = currentTrack.url;
       audioRef.current.volume = volume;
+      setAudioError(false);
     }
   }, [currentTrack, volume]);
 
-  // Update time
+  // Update time and handle errors
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
 
     const updateTime = () => setCurrentTime(audio.currentTime);
     const updateDuration = () => setDuration(audio.duration);
+    const handleError = () => {
+      console.error('Audio playback error:', audio.error);
+      setAudioError(true);
+      setIsPlaying(false);
+    };
 
     audio.addEventListener("timeupdate", updateTime);
     audio.addEventListener("loadedmetadata", updateDuration);
     audio.addEventListener("ended", handleNext);
+    audio.addEventListener("error", handleError);
 
     return () => {
       audio.removeEventListener("timeupdate", updateTime);
       audio.removeEventListener("loadedmetadata", updateDuration);
       audio.removeEventListener("ended", handleNext);
+      audio.removeEventListener("error", handleError);
     };
   }, [currentTrackIndex]);
 

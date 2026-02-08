@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ExternalLink, AlertCircle } from "lucide-react";
 
 interface BrowserProps {
     title?: string;
@@ -8,6 +9,7 @@ interface BrowserProps {
 export function Browser({ title = "Browser", initialUrl = "https://www.google.com/search?igu=1" }: BrowserProps): JSX.Element {
     const [url, setUrl] = useState(initialUrl);
     const [iframeUrl, setIframeUrl] = useState(initialUrl);
+    const [showFallback, setShowFallback] = useState(false);
 
     const handleNavigate = (e: React.FormEvent) => {
         e.preventDefault();
@@ -17,6 +19,17 @@ export function Browser({ title = "Browser", initialUrl = "https://www.google.co
         }
         setIframeUrl(target);
         setUrl(target);
+        setShowFallback(false); // Reset fallback when navigating
+    };
+
+    const handleOpenInNewTab = () => {
+        window.open(iframeUrl, '_blank', 'noopener,noreferrer');
+    };
+
+    // Check if URL is likely to be blocked
+    const isLikelyBlocked = (urlString: string) => {
+        const blockedDomains = ['linkedin.com', 'facebook.com', 'instagram.com', 'twitter.com', 'x.com', 'github.com'];
+        return blockedDomains.some(domain => urlString.includes(domain));
     };
 
     return (
@@ -47,16 +60,47 @@ export function Browser({ title = "Browser", initialUrl = "https://www.google.co
                     />
                 </form>
 
+                <button
+                    onClick={handleOpenInNewTab}
+                    className="p-1 hover:bg-muted rounded text-muted-foreground"
+                    title="Open in new tab"
+                >
+                    <ExternalLink className="w-4 h-4" />
+                </button>
+
                 <div className="text-xs font-medium text-muted-foreground px-2">FlowBrowser</div>
             </div>
 
-            <div className="flex-1 bg-white">
-                <iframe
-                    src={iframeUrl}
-                    title={title}
-                    className="w-full h-full border-none"
-                    sandbox="allow-forms allow-scripts allow-same-origin allow-popups"
-                />
+            <div className="flex-1 bg-background relative">
+                {showFallback || isLikelyBlocked(iframeUrl) ? (
+                    <div className="flex items-center justify-center h-full p-8">
+                        <div className="max-w-md text-center space-y-4">
+                            <AlertCircle className="w-12 h-12 mx-auto text-yellow-500" />
+                            <h3 className="text-lg font-semibold text-foreground">Can't Display This Page</h3>
+                            <p className="text-sm text-muted-foreground">
+                                This website blocks embedding for security reasons. Many sites like LinkedIn, Facebook, and GitHub prevent being shown in iframes.
+                            </p>
+                            <button
+                                onClick={handleOpenInNewTab}
+                                className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
+                            >
+                                <ExternalLink className="w-4 h-4" />
+                                Open in New Tab
+                            </button>
+                            <p className="text-xs text-muted-foreground mt-4">
+                                💡 Tip: Try YouTube, Wikipedia, or Google - they work great in the browser!
+                            </p>
+                        </div>
+                    </div>
+                ) : (
+                    <iframe
+                        src={iframeUrl}
+                        title={title}
+                        className="w-full h-full border-none"
+                        sandbox="allow-forms allow-scripts allow-same-origin allow-popups"
+                        onError={() => setShowFallback(true)}
+                    />
+                )}
             </div>
         </div>
     );
