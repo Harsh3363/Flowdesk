@@ -1,1 +1,0 @@
-import{_ as a,M as n}from"./index-R5DMnRP5.js";async function r(){try{const{toJsonSchema:t}=await a(async()=>{const{toJsonSchema:o}=await import("./standard-json-BPdA3TTP.js");return{toJsonSchema:o}},[]);return t}catch{throw new n("@valibot/to-json-schema")}}export{r as default};
